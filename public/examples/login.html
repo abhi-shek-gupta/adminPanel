@@ -1,0 +1,36 @@
+<div class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <b>Admin</b>Login
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Sign in to start your session</p>
+
+      <form name="loginForm" ng-submit="loginForm.$valid && submitForm(data)">
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" placeholder="Email" ng-model="data.email" required>
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" placeholder="Password" ng-model="data.password" required>
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-4 col-xs-offset-8">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          </div>
+        </div>
+      </form>
+
+       <!-- <pre>
+          {{loginForm|json}}
+      </pre>  -->
+
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+
+
+</div>

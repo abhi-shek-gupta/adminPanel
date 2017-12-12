@@ -1,0 +1,7 @@
+POST http://localhost:3000/admin_api/login-admin
+
+GET http://localhost:3000/admin_api/getBlogs-admin
+
+POST http://localhost:3000/admin_api/addBlog-admin
+
+PUT http://localhost:3000/admin_api/editBlog-admin?_id=5a2e4d8b6761db38a0ae460d

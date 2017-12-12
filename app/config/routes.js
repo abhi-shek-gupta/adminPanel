@@ -2,6 +2,10 @@ const   expressJWT      =   require('express-jwt'),
         fs              =   require("fs"),
         path            =   require("path"),
         config          =   require(path.resolve("./app/config/config"));
+
+        console.log(config);
+
+
 class AppRouter{
     constructor(app,router){
         this.call = {
@@ -22,12 +26,13 @@ class AppRouter{
             /*Store Classes in backend object*/
             this.backend[name] = require(path.resolve(`./app/controllers/backend/${name}`));
             /*Init All Classes & add Object to Array*/
+            console.log(name);
             this.call['backend'][name] = new this.backend[name]();
         });
     }//loadAdminClasses
     unlessRoutes(){
         this.router.use(expressJWT({ 
-            secret: new Buffer(config.secretKey).toString('base64')  
+            secret: config.secretKey
         }).unless({
             path :[
                   "/admin_api/login-admin"
@@ -38,10 +43,18 @@ class AppRouter{
 
     loadAdminRoutes(){
         //adminLogin route
-        this.router.post('/login-admin',this.call['backend']['AdminController'].login);
-        //dashbord route
-        // this.router.get('/dashbord-admin',this.call['backend']['AdminController'].dashbord)
-
+         this.router.post('/login-admin',this.call['backend']['AdminController'].login);
+        //add Blog route
+         this.router.post('/addBlog-admin',this.call['backend']['AdminController'].addBlog);
+        //getBlogs route
+         this.router.get('/getBlogs-admin',this.call['backend']['AdminController'].getBlogs);
+         //getBlogs route
+         this.router.get('/getABlog-admin',this.call['backend']['AdminController'].getABlog);
+        //getBlogs route
+         this.router.put('/editBlog-admin',this.call['backend']['AdminController'].editBlog);
+        //getBlogs route
+         this.router.put('/deleteBlog-admin',this.call['backend']['AdminController'].deleteBlog) 
+        
     }//loadAdminRoutes
 
     init(){

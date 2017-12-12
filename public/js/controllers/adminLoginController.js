@@ -1,4 +1,4 @@
-app.controller("adminLoginController",function( $scope,$http,$cookies,$location){
+app.controller("adminLoginController",function( $scope,$http,$cookies,$location, $rootScope){
     console.log("in adminLoginController");
     $scope.submitForm = function(data){
         console.log(data);
@@ -13,6 +13,7 @@ app.controller("adminLoginController",function( $scope,$http,$cookies,$location)
             expireDate.setDate(expireDate.getDate() + 1);
             console.log(expireDate);
             // Put cookie
+            $rootScope.token = res.data.token;
             $cookies.put('token',res.data.token, {path:'/', 'expires': expireDate});
             alert("Sign up Succesful !")
             $location.path('/dashbord');

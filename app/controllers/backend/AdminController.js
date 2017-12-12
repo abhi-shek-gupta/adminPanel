@@ -67,11 +67,11 @@ class AdminController{
         let obj = req.query;
         console.log("in getblogs");
     
-        var limit=obj.limit?parseInt(obj.limit):5;//results per page
+        var limit=obj.limit?parseInt(obj.limit):10;//results per page
         var page=(obj.page)?parseInt(obj.page):1;//offset
         var offset = (page-1)*limit;
         
-        async.waterfall([
+        async.parallel([
             (_callback) => {
                 blog.aggregate([
                     {
@@ -90,8 +90,14 @@ class AdminController{
                     
                 ]).then(response => _callback(null, response))
                 .catch(err=>_callback(err));
+            },
+            (_callback) =>{
+                blog.count({}).then(response => _callback(null, response))
+                .catch(err=>_callback(err));
+                
             }
         ], (err, results) => {
+            // console.log("results")
             if(err) res.status(412).json({type:"error",message:"Oops something went wrong!",error:err});
             return res.json({type:"success", message:"blogs returned", data:results});
         });
